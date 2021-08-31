@@ -227,10 +227,19 @@ if (MINGW)
   # library is implicit with a link in msys).
   find_library(win32pthread
     NAMES libwinpthread-1.dll)
+  if (NOT win32pthread)
+    if (BUILD_64)
+	    set(win32pthread C:\\msys64\\mingw64\\bin\\libwinpthread-1.dll)
+    else()
+	    set(win32pthread C:\\msys64\\mingw32\\bin\\libwinpthread-1.dll)
+    endif()
+    message(WARNING "win32pthread library was not found using automatic MinGW search so using default location ${win32pthread}") 
+  endif()
   foreach (input IN LISTS win32pthread OPENSSL_LIBRARIES)
     # Copy shared libraries into the build tree so that no PATH manipulation is
     # necessary.
     get_filename_component(name "${input}" NAME)
+    message(STATUS "${input}")
     configure_file(
       "${input}"
       "${CMAKE_BINARY_DIR}/bin/${name}"

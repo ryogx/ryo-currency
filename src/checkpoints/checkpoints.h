@@ -54,6 +54,11 @@
 #define ADD_CHECKPOINT(h, hash) GULPS_CHECK_AND_ASSERT(add_checkpoint(h, hash), false);
 #define JSON_HASH_FILE_NAME "checkpoints.json"
 
+#include <boost/bind/placeholders.hpp>
+
+using boost::placeholders::_1;
+using boost::placeholders::_2;
+
 namespace cryptonote
 {
 /**

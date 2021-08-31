@@ -53,8 +53,10 @@
 #include "../../../../src/cryptonote_core/cryptonote_core.h" // e.g. for the send_stop_signal()
 
 #include "common/gulps.hpp"
+#include <boost/bind/placeholders.hpp>
 
-
+using boost::placeholders::_1;
+using boost::placeholders::_2;
 
 #define DEFAULT_TIMEOUT_MS_LOCAL boost::posix_time::milliseconds(120000) // 2 minutes
 #define DEFAULT_TIMEOUT_MS_REMOTE boost::posix_time::milliseconds(10000) // 10 seconds
