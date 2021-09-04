@@ -901,6 +901,12 @@ if(USE_READLINE)
     endif()
     set(Readline_INCLUDE_DIR ${Readline_ROOT_DIR}/include)
     message(WARNING "Readline was not found by automatic MinGW search so using default root directory: ${Readline_ROOT_DIR} and include directory ${Readline_INCLUDE_DIR}")
+  elseif (Readline_LIBRARY AND NOT READLINE_FOUND AND APPLE)
+    # On Mac OS, readline headers installed with Homebrew is sometimes not detected.
+    # But since it could legitimately be not present, guard it with the library needing to be found
+    set(Readline_ROOT_DIR /usr/local)
+    set(Readline_INCLUDE_DIR ${Readline_ROOT_DIR}/include)
+    message(WARNING "Readline was not found by automatic Mac OS search so using default root directory: ${Readline_ROOT_DIR} and include directory ${Readline_INCLUDE_DIR}")
   else()
     message(STATUS "Could not find GNU readline library so building without readline support")
   endif()
