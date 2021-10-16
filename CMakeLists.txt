@@ -924,7 +924,11 @@ find_path(ZMQ_INCLUDE_PATH zmq.hpp)
 find_library(ZMQ_LIB zmq)
 find_library(PGM_LIBRARY pgm)
 find_library(NORM_LIBRARY norm)
-find_library(SODIUM_LIBRARY sodium)
+
+# On Mac, we want to supply own own libsodium to support the static ryo build.
+if (NOT SODIUM_LIBRARY)
+  find_library(SODIUM_LIBRARY sodium)
+endif()
 
 if(NOT ZMQ_INCLUDE_PATH)
   message(FATAL_ERROR "Could not find required header zmq.hpp")
